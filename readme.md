@@ -42,7 +42,8 @@ npm run dev
 │   ├── styles.css  # Styling
 │   ├── script.js   # JavaScript entry point (Three.js code)
 ├── package.json    # npm configuration
-├── README.md       # Project documentation
+├── readme.md       # Project documentation
+├── vite.config.js  # Vite configuration
 ```
 
 ## Deployment
