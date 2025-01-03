@@ -1,19 +1,65 @@
-# ThreeJS with Vite Starter Pack
-### Prerequisites
-Before you start, make sure you have Node.js installed on your machine: (https://nodejs.org/en/download/)
+# 3D Cube Viewer with ThreeJS
 
-### Installation
-Once you've cloned or downloaded this project file to your local machine, navigate to this project directory in your terminal.
+This project is a simple website that displays a rotating 3D cube using [Three.js](https://threejs.org/). It serves as a reference for exploring Three.js documentation and understanding the basics of 3D rendering in web applications.
 
-Run the following command to install the necessary dependencies:
+## Features
 
-``` bash
+- Renders a 3D cube in the browser.
+- Fully interactive: Rotate and zoom in/out using mouse controls.
+- Powered by Three.js.
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed on your machine:
+
+- [Node.js](https://nodejs.org/) (version 16 or later recommended)
+- [npm](https://www.npmjs.com/) (comes with Node.js)
+
+## Getting Started
+
+### 1. Install Dependencies
+
+Install all required dependencies using npm:
+
+```bash
 npm install
 ```
-### Running the project
-To start the development server, run the following command:
 
-``` bash
+### 2. Start the Development Server
+
+Start the local development server:
+
+```bash
 npm run dev
 ```
-This will start the server and open your default browser to your localhost. The site will reload automatically as you make changes to your code.
+
+## Project Structure
+
+```plaintext
+├── public          # Static assets
+├── src             # Source files
+│   ├── index.html  # HTML entry point
+│   ├── styles.css  # Styling
+│   ├── script.js   # JavaScript entry point (Three.js code)
+├── package.json    # npm configuration
+├── README.md       # Project documentation
+```
+
+## Deployment
+
+To deploy this project to production, build the optimized files:
+
+```bash
+npm run build
+```
+
+Then, serve the contents of the `dist` folder using any static site hosting service (e.g., Netlify, Vercel, or GitHub Pages).
+
+## Resources
+
+- [Three.js Documentation](https://threejs.org/docs/)
+- [Three.js Examples](https://threejs.org/examples/)
+
+## License
+
+This project is licensed under the MIT License. Feel free to use and modify the code as needed.
