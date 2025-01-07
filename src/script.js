@@ -12,7 +12,13 @@ const cubeMesh = new THREE.Mesh(
   cubeGeometry,
   cubeMaterial
 );
-cubeMesh.position.y =1;
+
+cubeMesh.rotation.reorder('YXZ');
+cubeMesh.rotation.y = THREE.MathUtils.degToRad(90);
+cubeMesh.rotation.x = THREE.MathUtils.degToRad(45);
+
+
+
 scene.add(cubeMesh);
 
 //cubeMesh.scale.set(2,2,1);
