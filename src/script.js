@@ -13,11 +13,9 @@ const cubeMesh = new THREE.Mesh(
   cubeMaterial
 );
 
-cubeMesh.rotation.reorder('YXZ');
-cubeMesh.rotation.y = THREE.MathUtils.degToRad(90);
-cubeMesh.rotation.x = THREE.MathUtils.degToRad(45);
-
-
+// cubeMesh.rotation.reorder('YXZ');
+// cubeMesh.rotation.y = THREE.MathUtils.degToRad(90);
+// cubeMesh.rotation.x = THREE.MathUtils.degToRad(45);
 
 scene.add(cubeMesh);
 
@@ -32,8 +30,8 @@ scene.add(cubeMesh);
 
 console.log(cubeMesh);
 
-const axesHelper = new THREE.AxesHelper(2);
-scene.add(axesHelper);
+//const axesHelper = new THREE.AxesHelper(2);
+//scene.add(axesHelper);
 
 // initialize the camera
 const camera = new THREE.PerspectiveCamera(
@@ -54,7 +52,6 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-
 //instantiate the controls
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
@@ -66,8 +63,18 @@ window.addEventListener('resize', () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
 })
 
+//initiatilize the clock
+const clock = new THREE.Clock();
+let previousTime = 0;
 // render the scene
 const renderloop = () => {
+  const currentTime = clock.getElapsedTime();
+  const delta = currentTime - previousTime;
+  previousTime = currentTime;
+
+
+  cubeMesh.rotation.y += THREE.MathUtils.degToRad(1) * delta * 20;
+  console.log(delta)
   controls.update();
   renderer.render(scene, camera);
   window.requestAnimationFrame(renderloop);
