@@ -5,23 +5,25 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 const scene = new THREE.Scene();
 
 // add objects to the scene
-//const cubeGeometry = new THREE.BoxGeometry(1,1,1);
+const geometry = new THREE.BoxGeometry(1,1,1,2,2,2);
+//const geometry = new THREE.SphereGeometry(1,16,18);
+//const geometry = new THREE.PlaneGeometry(1,1,2,2);
+//const geometry = new THREE.TorusKnotGeometry(10,3,100,16);
+
 
 //create custom geometry
-const vertices = new Float32Array([
-  0,0,0,
-  0,2,0,
-  2,0,0
-]);
-
-const bufferAttribute = new THREE.BufferAttribute(vertices, 3);
-
-const geometry = new THREE.BufferGeometry();
-geometry.setAttribute('position', bufferAttribute);
+// const vertices = new Float32Array([
+//   0,0,0,
+//   0,2,0,
+//   2,0,0
+// ]);
+// const bufferAttribute = new THREE.BufferAttribute(vertices, 3);
+// const geometry = new THREE.BufferGeometry();
+// geometry.setAttribute('position', bufferAttribute);
 
 const cubeMaterial = new THREE.MeshBasicMaterial({color: "#74b3ce", wireframe: true});
 const cubeMesh = new THREE.Mesh(
-  geometry,// cubeGeometry,
+  geometry,
   cubeMaterial
 );
 
