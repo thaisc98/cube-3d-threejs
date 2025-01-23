@@ -11,11 +11,12 @@ const scene = new THREE.Scene();
 const geometry = new THREE.BoxGeometry(1,1,1);
 const torusKnotGeometry = new THREE.TorusKnotGeometry(0.5,0.15,100,16);
 const planeGeometry = new THREE.PlaneGeometry(1,1);
+const sphereGeometry = new THREE.SphereGeometry(0.5,32,32);
+const cylinderGeometry = new THREE.CylinderGeometry(0.5,0.5, 1, 32);
 
 const material = new THREE.MeshPhysicalMaterial();
 material.shininess = 90
 material.side = THREE.DoubleSide;
-material.color = new THREE.Color('green'); //#74b3ce
 
 pane.addBinding(material, 'metalness', {
   min: 0,
@@ -46,18 +47,32 @@ pane.addBinding(material, 'clearcoat', {
   max: 1,
   step: 0.01
 })
+// initialize a group
+const group = new THREE.Group();
 
-const cubeMesh = new THREE.Mesh(geometry, material);
+// initialize the mesh
+const cube = new THREE.Mesh(geometry, material);
 
-const mesh2 = new THREE.Mesh(torusKnotGeometry, material);
-mesh2.position.x = 1.5;
+const knot = new THREE.Mesh(torusKnotGeometry, material);
+knot.position.x = 1.5;
 
-const planeMesh = new THREE.Mesh(planeGeometry,material);
-planeMesh.position.x = -1.5;
+const plane = new THREE.Mesh(planeGeometry,material);
+plane.position.x = -1.5;
 
-scene.add(cubeMesh);
-scene.add(mesh2);
-scene.add(planeMesh);
+const sphere = new THREE.Mesh();
+sphere.geometry = sphereGeometry;
+sphere.material = material;
+sphere.position.y = 1.5;
+
+const cylinder = new THREE.Mesh();
+cylinder.geometry = cylinderGeometry;
+cylinder.material = material;
+cylinder.position.y = -1.5;
+
+// add the mest to the scene
+group.add(sphere, cylinder,cube, knot, plane);
+
+scene.add(group);
 
 // initialize the light
 const light = new THREE.AmbientLight(0xffffff,1);
@@ -97,8 +112,14 @@ window.addEventListener('resize', () => {
 })
 
 
+
 // render the scene
 const renderloop = () => {
+  group.children.forEach((child) => {
+    if( child instanceof THREE.Mesh){
+      child.rotation.y += 0.01;
+    }
+  }) 
   controls.update();
   renderer.render(scene, camera);
   window.requestAnimationFrame(renderloop);
