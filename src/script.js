@@ -12,7 +12,7 @@ const geometry = new THREE.BoxGeometry(1,1,1);
 const torusKnotGeometry = new THREE.TorusKnotGeometry(0.5,0.15,100,16);
 const planeGeometry = new THREE.PlaneGeometry(1,1);
 
-const material = new THREE.MeshStandardMaterial();
+const material = new THREE.MeshPhysicalMaterial();
 material.shininess = 90
 material.side = THREE.DoubleSide;
 material.color = new THREE.Color('green'); //#74b3ce
@@ -34,6 +34,18 @@ pane.addBinding(material, 'shininess',{
   max: 200,
   step: 1
 });
+
+pane.addBinding(material, 'reflectivity', {
+  min: 0,
+  max: 1,
+  step: 0.01
+})
+
+pane.addBinding(material, 'clearcoat', {
+  min: 0,
+  max: 1,
+  step: 0.01
+})
 
 const cubeMesh = new THREE.Mesh(geometry, material);
 
