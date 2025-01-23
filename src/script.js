@@ -1,26 +1,30 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { Pane } from 'tweakpane';
+
+const pane = new Pane();
 
 // initialize the scene
 const scene = new THREE.Scene();
 
 // add objects to the scene
-const geometry = new THREE.BoxGeometry(1,1,1,2,2,2);
+const geometry = new THREE.BoxGeometry(1,1,1);
+const torusKnotGeometry = new THREE.TorusKnotGeometry(0.5,0.15,100,16);
 const planeGeometry = new THREE.PlaneGeometry(1,1);
 
-const material = new THREE.MeshBasicMaterial({color: "#74b3ce", wireframe: false});
-
-material.transparent = true;
-material.opacity = 0.5;
+const material = new THREE.MeshPhongMaterial();
+material.shininess = 90
 material.side = THREE.DoubleSide;
-material.fog = true;
+material.color = new THREE.Color('red')
+pane.addBinding(material, 'shininess',{
+  min: 0,
+  max: 200,
+  step: 1
+});
 
-const fog = new THREE.Fog(0xffffff,1,10);
-scene.fog = fog;
-scene.background = new THREE.Color(0xffffff);
 const cubeMesh = new THREE.Mesh(geometry, material);
 
-const mesh2 = new THREE.Mesh(geometry, material);
+const mesh2 = new THREE.Mesh(torusKnotGeometry, material);
 mesh2.position.x = 1.5;
 
 const planeMesh = new THREE.Mesh(planeGeometry,material);
@@ -30,9 +34,16 @@ scene.add(cubeMesh);
 scene.add(mesh2);
 scene.add(planeMesh);
 
+// initialize the light
+const light = new THREE.AmbientLight("#74b3ce",0.2);
+scene.add(light); 
+
+const pointLight = new THREE.PointLight(0xffffff,10)
+pointLight.position.set(5,5,5);
+scene.add(pointLight);
 // initialize the camera
 const camera = new THREE.PerspectiveCamera(
-  75, 
+  50, 
   window.innerWidth / window.innerHeight,
   0.1,
   200);
@@ -52,7 +63,7 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 //instantiate the controls
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
-controls.autoRotate = true;
+//controls.autoRotate = true;
 
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
