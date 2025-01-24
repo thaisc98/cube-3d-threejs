@@ -2,10 +2,14 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { Pane } from 'tweakpane';
 
+// initialize the pane
 const pane = new Pane();
 
 // initialize the scene
 const scene = new THREE.Scene();
+
+//initialize the loader
+const textureLoader = new THREE.TextureLoader();
 
 // add objects to the scene
 const geometry = new THREE.BoxGeometry(1,1,1);
@@ -14,9 +18,16 @@ const planeGeometry = new THREE.PlaneGeometry(1,1);
 const sphereGeometry = new THREE.SphereGeometry(0.5,32,32);
 const cylinderGeometry = new THREE.CylinderGeometry(0.5,0.5, 1, 32);
 
+// initialize the texture
+const textureTest = textureLoader.load('textures/whispy-grass-meadow-bl/wispy-grass-meadow_albedo.png');
+console.log(textureTest)
+
 const material = new THREE.MeshPhysicalMaterial();
 material.shininess = 90
 material.side = THREE.DoubleSide;
+material.map = textureTest;
+material.color = new THREE.Color("red")
+console.log(material);
 
 pane.addBinding(material, 'metalness', {
   min: 0,
@@ -47,6 +58,7 @@ pane.addBinding(material, 'clearcoat', {
   max: 1,
   step: 0.01
 })
+
 // initialize a group
 const group = new THREE.Group();
 
@@ -110,8 +122,6 @@ window.addEventListener('resize', () => {
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 })
-
-
 
 // render the scene
 const renderloop = () => {
