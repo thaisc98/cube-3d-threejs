@@ -3,7 +3,7 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { Pane } from "tweakpane";
 
 // initialize the pane
-const pane = new Pane();
+//const pane = new Pane();
 
 // initialize the scene
 const scene = new THREE.Scene();
@@ -19,15 +19,38 @@ const sphereGeometry = new THREE.SphereGeometry(0.5, 32, 32);
 const cylinderGeometry = new THREE.CylinderGeometry(0.5, 0.5, 1, 32);
 
 // initialize the texture
-const grassTexture = textureLoader.load(
-  "/textures/uvMappingTest.jpg"
+const grassAlbedo = textureLoader.load(
+  "/textures/whispy-grass-meadow-bl/wispy-grass-meadow_albedo.png"
 );
-const material = new THREE.MeshBasicMaterial();
-///material.shininess = 90
-material.side = THREE.DoubleSide;
-material.map = grassTexture;
+const grassAo = textureLoader.load(
+  "/textures/whispy-grass-meadow-bl/wispy-grass-meadow_ao.png"
+);
 
-console.log(material);
+const grassHeight = textureLoader.load(
+  "/textures/whispy-grass-meadow-bl/wispy-grass-meadow_height.png"
+);
+
+const grassMetallic = textureLoader.load(
+  "/textures/whispy-grass-meadow-bl/wispy-grass-meadow_metallic.png"
+);
+
+const grassNormal = textureLoader.load(
+  "/textures/whispy-grass-meadow-bl/wispy-grass-meadow_normal-ogl.png"
+);
+
+const grassRoughness = textureLoader.load(
+"/textures/whispy-grass-meadow-bl/wispy-grass-meadow_roughness.png"
+);
+
+const material = new THREE.MeshStandardMaterial();
+///material.shininess = 90
+//material.side = THREE.DoubleSide;
+material.map = grassAlbedo;
+material.roughnessMap = grassRoughness;
+material.roughness = 1;
+material.metalnessMap = grassMetallic;
+material.metalness = 1;
+material.normalMap = grassNormal
 
 // pane.addBinding(material, 'metalness', {
 //   min: 0,
@@ -86,10 +109,10 @@ group.add(sphere, cylinder,cube, knot, plane);
 scene.add(group);
 
 // initialize the light
-const light = new THREE.AmbientLight(0xffffff, 1);
+const light = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(light);
 
-const pointLight = new THREE.PointLight(0xffffff, 10);
+const pointLight = new THREE.PointLight(0xffffff, 2);
 pointLight.position.set(5, 5, 5);
 scene.add(pointLight);
 // initialize the camera
@@ -101,7 +124,6 @@ const camera = new THREE.PerspectiveCamera(
 );
 
 camera.position.z = 10;
-camera.position.y = 10;
 // initialize the renderer
 const canvas = document.querySelector("canvas.threejs");
 const renderer = new THREE.WebGLRenderer({
@@ -125,11 +147,11 @@ window.addEventListener("resize", () => {
 
 // render the scene
 const renderloop = () => {
-  group.children.forEach((child) => {
-    if( child instanceof THREE.Mesh){
-      child.rotation.y += 0.01;
-    }
-  })
+  // group.children.forEach((child) => {
+  //   if( child instanceof THREE.Mesh){
+  //     child.rotation.y += 0.01;
+  //   }
+  // })
   controls.update();
   renderer.render(scene, camera);
   window.requestAnimationFrame(renderloop);
