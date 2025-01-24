@@ -3,7 +3,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { Pane } from 'tweakpane';
 
 // initialize the pane
-const pane = new Pane();
+//const pane = new Pane();
 
 // initialize the scene
 const scene = new THREE.Scene();
@@ -19,45 +19,47 @@ const sphereGeometry = new THREE.SphereGeometry(0.5,32,32);
 const cylinderGeometry = new THREE.CylinderGeometry(0.5,0.5, 1, 32);
 
 // initialize the texture
-const textureTest = textureLoader.load('textures/whispy-grass-meadow-bl/wispy-grass-meadow_albedo.png');
-console.log(textureTest)
+const grassTexture = textureLoader.load('textures/whispy-grass-meadow-bl/wispy-grass-meadow_albedo.png');
+grassTexture.repeat.set(100,100);
+grassTexture.wrapS = THREE.MirroredRepeatWrapping
+grassTexture.wrapT = THREE.MirroredRepeatWrapping
 
-const material = new THREE.MeshPhysicalMaterial();
-material.shininess = 90
+const material = new THREE.MeshBasicMaterial();
+///material.shininess = 90
 material.side = THREE.DoubleSide;
-material.map = textureTest;
-material.color = new THREE.Color("red")
+material.map = grassTexture;
+
 console.log(material);
 
-pane.addBinding(material, 'metalness', {
-  min: 0,
-  max: 1,
-  step: 0.01
-});
+// pane.addBinding(material, 'metalness', {
+//   min: 0,
+//   max: 1,
+//   step: 0.01
+// });
 
-pane.addBinding(material, 'roughness', {
-  min: 0,
-  max: 1,
-  step: 0.01
-});
+// pane.addBinding(material, 'roughness', {
+//   min: 0,
+//   max: 1,
+//   step: 0.01
+// });
 
-pane.addBinding(material, 'shininess',{
-  min: 0,
-  max: 200,
-  step: 1
-});
+// // pane.addBinding(material, 'shininess',{
+// //   min: 0,
+// //   max: 200,
+// //   step: 1
+// // });
 
-pane.addBinding(material, 'reflectivity', {
-  min: 0,
-  max: 1,
-  step: 0.01
-})
+// pane.addBinding(material, 'reflectivity', {
+//   min: 0,
+//   max: 1,
+//   step: 0.01
+// })
 
-pane.addBinding(material, 'clearcoat', {
-  min: 0,
-  max: 1,
-  step: 0.01
-})
+// pane.addBinding(material, 'clearcoat', {
+//   min: 0,
+//   max: 1,
+//   step: 0.01
+// })
 
 // initialize a group
 const group = new THREE.Group();
@@ -70,6 +72,8 @@ knot.position.x = 1.5;
 
 const plane = new THREE.Mesh(planeGeometry,material);
 plane.position.x = -1.5;
+plane.rotation.x = -(Math.PI * 0.5);
+plane.scale.set(10,10)
 
 const sphere = new THREE.Mesh();
 sphere.geometry = sphereGeometry;
@@ -82,8 +86,8 @@ cylinder.material = material;
 cylinder.position.y = -1.5;
 
 // add the mest to the scene
-group.add(sphere, cylinder,cube, knot, plane);
-
+//group.add(sphere, cylinder,cube, knot, plane);
+group.add(plane);
 scene.add(group);
 
 // initialize the light
@@ -95,13 +99,14 @@ pointLight.position.set(5,5,5);
 scene.add(pointLight);
 // initialize the camera
 const camera = new THREE.PerspectiveCamera(
-  50, 
+  25, 
   window.innerWidth / window.innerHeight,
   0.1,
-  200);
+  10000
+);
 
-camera.position.z = 5;
-
+camera.position.z = 10;
+camera.position.y = 10;
 // initialize the renderer
 const canvas = document.querySelector('canvas.threejs');
 const renderer = new THREE.WebGLRenderer({
@@ -125,11 +130,11 @@ window.addEventListener('resize', () => {
 
 // render the scene
 const renderloop = () => {
-  group.children.forEach((child) => {
-    if( child instanceof THREE.Mesh){
-      child.rotation.y += 0.01;
-    }
-  }) 
+  // group.children.forEach((child) => {
+  //   if( child instanceof THREE.Mesh){
+  //     child.rotation.y += 0.01;
+  //   }
+  // }) 
   controls.update();
   renderer.render(scene, camera);
   window.requestAnimationFrame(renderloop);
