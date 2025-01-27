@@ -2,11 +2,14 @@
 
 This project is a simple website that displays a rotating 3D cube using [Three.js](https://threejs.org/). It serves as a reference for exploring Three.js documentation and understanding the basics of 3D rendering in web applications.
 
+<img width="673" alt="Screenshot 2025-01-27 at 6 20 03 PM" src="https://github.com/user-attachments/assets/8f132b6f-52c1-4745-ac2c-f3f03a964e46" />
+
 ## Features
 
 - Renders a 3D cube in the browser.
 - Fully interactive: Rotate and zoom in/out using mouse controls.
 - Powered by Three.js.
+- Manipulate the metalness, roughness, aoMapIntensity and displacementScale
 
 ## Prerequisites
 
