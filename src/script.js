@@ -30,11 +30,11 @@ const grassRoughness = textureLoader.load("/textures/whispy-grass-meadow-bl/wisp
 
 // load the carbon fiber textures
 const carbonAlbedo = textureLoader.load("/textures/carbon-fiber-bl/carbon-fiber_albedo.png");
-const carbonAo = textureLoader.load("textures/carbon-fiber-bl/carbon-fiber_ao.png");
-const carbonHeight = textureLoader.load("textures/carbon-fiber-bl/carbon-fiber_height.png");
-const carbonMetallic = textureLoader.load("textures/carbon-fiber-bl/carbon-fiber_metallic.png");
-const carbonNormal = textureLoader.load("textures/carbon-fiber-bl/carbon-fiber_normal-ogl.png");
-const carbonRoughness = textureLoader.load("textures/carbon-fiber-bl/carbon-fiber_roughness.png");
+const carbonAo = textureLoader.load("/textures/carbon-fiber-bl/carbon-fiber_ao.png");
+const carbonHeight = textureLoader.load("/textures/carbon-fiber-bl/carbon-fiber_height.png");
+const carbonMetallic = textureLoader.load("/textures/carbon-fiber-bl/carbon-fiber_metallic.png");
+const carbonNormal = textureLoader.load("/textures/carbon-fiber-bl/carbon-fiber_normal-ogl.png");
+const carbonRoughness = textureLoader.load("/textures/carbon-fiber-bl/carbon-fiber_roughness.png");
 
 // load the metal container
 const metalContainerAlbedo = textureLoader.load("/textures/metal-shipping-container-bl/metal-shipping-container_albedo.png");
