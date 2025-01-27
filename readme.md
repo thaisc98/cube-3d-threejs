@@ -36,14 +36,18 @@ npm run dev
 ## Project Structure
 
 ```plaintext
-├── public          # Static assets
-├── src             # Source files
-│   ├── index.html  # HTML entry point
-│   ├── styles.css  # Styling
-│   ├── script.js   # JavaScript entry point (Three.js code)
-├── package.json    # npm configuration
-├── readme.md       # Project documentation
-├── vite.config.js  # Vite configuration
+├── src                             # Source files
+│   ├── index.html                  # HTML entry point
+│   ├── styles.css                  # Styling
+│   ├── script.js                   # JavaScript entry point (Three.js code)
+├── static/textures                 # Static Textures files
+│   ├── carbon-fiber-bl             # Textures Carbon fiber from Freepbr
+│   ├── metal-shipping-container-bl # Textures Metal container from Freepbr
+│   ├── space-cruiser-panels2-bl    # Textures Space Cruiser from Freepbr
+│   ├── whispy-grass-meadow-bl      # Textures Whispy Grass from Freepbr
+├── package.json                    # npm configuration
+├── readme.md                       # Project documentation
+├── vite.config.js                  # Vite configuration
 ```
 
 ## Deployment
@@ -60,6 +64,7 @@ Then, serve the contents of the `dist` folder using any static site hosting serv
 
 - [Three.js Documentation](https://threejs.org/docs/)
 - [Three.js Examples](https://threejs.org/examples/)
+- [Freepbr](https://freepbr.com/)
 
 ## License
 
