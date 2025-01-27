@@ -3,7 +3,7 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { Pane } from "tweakpane";
 
 // initialize the pane
-//const pane = new Pane();
+const pane = new Pane();
 
 // initialize the scene
 const scene = new THREE.Scene();
@@ -13,10 +13,24 @@ const textureLoader = new THREE.TextureLoader();
 
 // add objects to the scene
 const geometry = new THREE.BoxGeometry(1, 1, 1);
+const uv2Geometry = new THREE.BufferAttribute(geometry.attributes.uv.array,2);
+geometry.setAttribute('uv2', uv2Geometry);
+
 const torusKnotGeometry = new THREE.TorusKnotGeometry(0.5, 0.15, 100, 16);
+const uv2TorusKnotGeometry = new THREE.BufferAttribute(torusKnotGeometry.attributes.uv.array,2);
+torusKnotGeometry.setAttribute('uv2', uv2TorusKnotGeometry);
+
 const planeGeometry = new THREE.PlaneGeometry(1, 1);
+const uv2PlaneGeometry= new THREE.BufferAttribute(planeGeometry.attributes.uv.array,2);
+planeGeometry.setAttribute('uv2', uv2PlaneGeometry);
+
 const sphereGeometry = new THREE.SphereGeometry(0.5, 32, 32);
+const uv2SphereGeometry = new THREE.BufferAttribute(sphereGeometry.attributes.uv.array,2);
+sphereGeometry.setAttribute('uv2', uv2SphereGeometry);
+
 const cylinderGeometry = new THREE.CylinderGeometry(0.5, 0.5, 1, 32);
+const uv2CylinderGeometry = new THREE.BufferAttribute(cylinderGeometry.attributes.uv.array,2);
+cylinderGeometry.setAttribute('uv2', uv2CylinderGeometry);
 
 // initialize the texture
 const grassAlbedo = textureLoader.load(
@@ -51,6 +65,11 @@ material.roughness = 1;
 material.metalnessMap = grassMetallic;
 material.metalness = 1;
 material.normalMap = grassNormal
+material.displacementMap = grassHeight
+material.displacementScale = 0.1
+
+material.aoMap = grassAo
+material.aoMapIntensity = 0.3
 
 // pane.addBinding(material, 'metalness', {
 //   min: 0,
@@ -81,6 +100,12 @@ material.normalMap = grassNormal
 //   max: 1,
 //   step: 0.01
 // })
+
+pane.addBinding(material, 'aoMapIntensity', {
+  min: 0,
+  max: 1,
+  step: 0.01
+});
 
 // initialize a group
 const group = new THREE.Group();
