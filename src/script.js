@@ -8,7 +8,7 @@ const pane = new Pane();
 // initialize the scene
 const scene = new THREE.Scene();
 
-//initialize the loader
+//initialize the 
 const textureLoader = new THREE.TextureLoader();
 
 // add objects to the scene
@@ -16,121 +16,140 @@ const geometry = new THREE.BoxGeometry(1, 1, 1);
 const uv2Geometry = new THREE.BufferAttribute(geometry.attributes.uv.array,2);
 geometry.setAttribute('uv2', uv2Geometry);
 
-const torusKnotGeometry = new THREE.TorusKnotGeometry(0.5, 0.15, 100, 16);
-const uv2TorusKnotGeometry = new THREE.BufferAttribute(torusKnotGeometry.attributes.uv.array,2);
-torusKnotGeometry.setAttribute('uv2', uv2TorusKnotGeometry);
-
-const planeGeometry = new THREE.PlaneGeometry(1, 1);
-const uv2PlaneGeometry= new THREE.BufferAttribute(planeGeometry.attributes.uv.array,2);
-planeGeometry.setAttribute('uv2', uv2PlaneGeometry);
-
 const sphereGeometry = new THREE.SphereGeometry(0.5, 32, 32);
 const uv2SphereGeometry = new THREE.BufferAttribute(sphereGeometry.attributes.uv.array,2);
 sphereGeometry.setAttribute('uv2', uv2SphereGeometry);
 
-const cylinderGeometry = new THREE.CylinderGeometry(0.5, 0.5, 1, 32);
-const uv2CylinderGeometry = new THREE.BufferAttribute(cylinderGeometry.attributes.uv.array,2);
-cylinderGeometry.setAttribute('uv2', uv2CylinderGeometry);
+// initialize the texture grass
+const grassAlbedo = textureLoader.load("/textures/whispy-grass-meadow-bl/wispy-grass-meadow_albedo.png");
+const grassAo = textureLoader.load("/textures/whispy-grass-meadow-bl/wispy-grass-meadow_ao.png");
+const grassHeight = textureLoader.load("/textures/whispy-grass-meadow-bl/wispy-grass-meadow_height.png");
+const grassMetallic = textureLoader.load("/textures/whispy-grass-meadow-bl/wispy-grass-meadow_metallic.png");
+const grassNormal = textureLoader.load("/textures/whispy-grass-meadow-bl/wispy-grass-meadow_normal-ogl.png");
+const grassRoughness = textureLoader.load("/textures/whispy-grass-meadow-bl/wispy-grass-meadow_roughness.png");
 
-// initialize the texture
-const grassAlbedo = textureLoader.load(
-  "/textures/whispy-grass-meadow-bl/wispy-grass-meadow_albedo.png"
-);
-const grassAo = textureLoader.load(
-  "/textures/whispy-grass-meadow-bl/wispy-grass-meadow_ao.png"
-);
+// load the carbon fiber textures
+const carbonAlbedo = textureLoader.load("/textures/carbon-fiber-bl/carbon-fiber_albedo.png");
+const carbonAo = textureLoader.load("textures/carbon-fiber-bl/carbon-fiber_ao.png");
+const carbonHeight = textureLoader.load("textures/carbon-fiber-bl/carbon-fiber_height.png");
+const carbonMetallic = textureLoader.load("textures/carbon-fiber-bl/carbon-fiber_metallic.png");
+const carbonNormal = textureLoader.load("textures/carbon-fiber-bl/carbon-fiber_normal-ogl.png");
+const carbonRoughness = textureLoader.load("textures/carbon-fiber-bl/carbon-fiber_roughness.png");
 
-const grassHeight = textureLoader.load(
-  "/textures/whispy-grass-meadow-bl/wispy-grass-meadow_height.png"
-);
+// load the metal container
+const metalContainerAlbedo = textureLoader.load("/textures/metal-shipping-container-bl/metal-shipping-container_albedo.png");
+const metalContainerAo = textureLoader.load("/textures/metal-shipping-container-bl/metal-shipping-container_ao.png");
+const metalContainerHeight = textureLoader.load("/textures/metal-shipping-container-bl/metal-shipping-container_height.png");
+const metalContainerMetallic = textureLoader.load("/textures/metal-shipping-container-bl/metal-shipping-container_metallic.png");
+const metalContainerNormal = textureLoader.load("/textures/metal-shipping-container-bl/metal-shipping-container_normal-ogl.png");
+const metalContainerRoughness = textureLoader.load("/textures/metal-shipping-container-bl/metal-shipping-container_roughness.png");
 
-const grassMetallic = textureLoader.load(
-  "/textures/whispy-grass-meadow-bl/wispy-grass-meadow_metallic.png"
-);
+//load the space cruiser 
+const spaceCruiserAlbedo = textureLoader.load("/textures/space-cruiser-panels2-bl/space-cruiser-panels2_albedo.png");
+const spaceCruiserAo = textureLoader.load("/textures/space-cruiser-panels2-bl/space-cruiser-panels2_ao.png");
+const spaceCruiserHeight = textureLoader.load("//textures/space-cruiser-panels2-bl/space-cruiser-panels2_height.png");
+const spaceCruiserMetallic = textureLoader.load("/textures/space-cruiser-panels2-bl/space-cruiser-panels2_metallic.png");
+const spaceCruiserNormal = textureLoader.load("/textures/space-cruiser-panels2-bl/space-cruiser-panels2_normal-ogl.png");
+const spaceCruiserRoughness = textureLoader.load("/textures/space-cruiser-panels2-bl/space-cruiser-panels2_roughness.png");
 
-const grassNormal = textureLoader.load(
-  "/textures/whispy-grass-meadow-bl/wispy-grass-meadow_normal-ogl.png"
-);
 
-const grassRoughness = textureLoader.load(
-"/textures/whispy-grass-meadow-bl/wispy-grass-meadow_roughness.png"
-);
+const grassPane = pane.addFolder({
+  title: 'Grass Meadow Material',
+  expanded: true
+})
 
-const material = new THREE.MeshStandardMaterial();
-///material.shininess = 90
-//material.side = THREE.DoubleSide;
-material.map = grassAlbedo;
-material.roughnessMap = grassRoughness;
-material.roughness = 1;
-material.metalnessMap = grassMetallic;
-material.metalness = 1;
-material.normalMap = grassNormal
-material.displacementMap = grassHeight
-material.displacementScale = 0.1
+const materialGrass = new THREE.MeshStandardMaterial();
+materialGrass.map = grassAlbedo;
+materialGrass.roughnessMap = grassRoughness;
+materialGrass.roughness = 1;
+materialGrass.metalnessMap = grassMetallic;
+materialGrass.metalness = 1;
+materialGrass.normalMap = grassNormal;
+materialGrass.displacementMap = grassHeight;
+materialGrass.displacementScale = 0.0;
+materialGrass.aoMap = grassAo;
+materialGrass.aoMapIntensity = 0.3;
 
-material.aoMap = grassAo
-material.aoMapIntensity = 0.3
+grassPane.addBinding(materialGrass, 'metalness', { min: 0, max: 1, step: 0.01 });
+grassPane.addBinding(materialGrass, 'roughness', { min: 0, max: 1, step: 0.01 });
+grassPane.addBinding(materialGrass, 'displacementScale', { min: 0, max: 1, step: 0.01 });
+grassPane.addBinding(materialGrass, 'aoMapIntensity', { min: 0, max: 1, step: 0.01 });
 
-// pane.addBinding(material, 'metalness', {
-//   min: 0,
-//   max: 1,
-//   step: 0.01
-// });
+const carbonPane = pane.addFolder({
+  title: 'Carbon Fiber Material',
+  expanded: true
+})
 
-// pane.addBinding(material, 'roughness', {
-//   min: 0,
-//   max: 1,
-//   step: 0.01
-// });
+const materialCarbon = new THREE.MeshStandardMaterial();
+materialCarbon.map = carbonAlbedo;
+materialCarbon.roughnessMap = carbonRoughness;
+materialCarbon.metalnessMap = carbonMetallic;
+materialCarbon.normalMap = carbonNormal;
+materialCarbon.displacementMap = carbonHeight;
+materialCarbon.displacementScale = 0.0;
+materialCarbon.aoMap = carbonAo;
 
-// // pane.addBinding(material, 'shininess',{
-// //   min: 0,
-// //   max: 200,
-// //   step: 1
-// // });
+carbonPane.addBinding(materialCarbon, 'metalness', { min: 0, max: 1, step: 0.01 });
+carbonPane.addBinding(materialCarbon, 'roughness', { min: 0, max: 1, step: 0.01 });
+carbonPane.addBinding(materialCarbon, 'displacementScale', { min: 0, max: 1, step: 0.01 });
+carbonPane.addBinding(materialCarbon, 'aoMapIntensity', { min: 0, max: 1, step: 0.01 });
 
-// pane.addBinding(material, 'reflectivity', {
-//   min: 0,
-//   max: 1,
-//   step: 0.01
-// })
+const metalContainerPane = pane.addFolder({
+  title: 'Metal Container Material',
+  expanded: true
+})
 
-// pane.addBinding(material, 'clearcoat', {
-//   min: 0,
-//   max: 1,
-//   step: 0.01
-// })
+const materialMetalContainer = new THREE.MeshStandardMaterial();
+materialMetalContainer.map = metalContainerAlbedo;
+materialMetalContainer.roughnessMap = metalContainerRoughness;
+materialMetalContainer.metalnessMap = metalContainerMetallic;
+materialMetalContainer.normalMap = metalContainerNormal;
+materialMetalContainer.displacementMap = metalContainerHeight;
+materialMetalContainer.displacementScale = 0.0;
+materialMetalContainer.aoMap = metalContainerAo;
 
-pane.addBinding(material, 'aoMapIntensity', {
-  min: 0,
-  max: 1,
-  step: 0.01
+metalContainerPane.addBinding(materialMetalContainer, 'metalness', { min: 0, max: 1, step: 0.01 });
+metalContainerPane.addBinding(materialMetalContainer, 'roughness', { min: 0, max: 1, step: 0.01 });
+metalContainerPane.addBinding(materialMetalContainer, 'displacementScale', { min: 0, max: 1, step: 0.01 });
+metalContainerPane.addBinding(materialMetalContainer, 'aoMapIntensity', { min: 0, max: 1, step: 0.01 });
+
+const spacePane = pane.addFolder({
+  title: 'Space Cruiser  Material',
+  expanded: true
 });
+
+const materialSpaceCruiser = new THREE.MeshStandardMaterial();
+materialSpaceCruiser.map = spaceCruiserAlbedo;
+materialSpaceCruiser.roughnessMap = spaceCruiserRoughness;
+materialSpaceCruiser.normalMap = spaceCruiserNormal;
+materialSpaceCruiser.displacementMap = spaceCruiserHeight;
+materialSpaceCruiser.displacementScale = 0.0;
+materialSpaceCruiser.aoMap = spaceCruiserAo;
+materialSpaceCruiser.aoMapIntensity = 0.3;
+
+spacePane.addBinding(materialSpaceCruiser, 'metalness', { min: 0, max: 1, step: 0.01 });
+spacePane.addBinding(materialSpaceCruiser, 'roughness', { min: 0, max: 1, step: 0.01 });
+spacePane.addBinding(materialSpaceCruiser, 'displacementScale', { min: 0, max: 1, step: 0.01 });
+spacePane.addBinding(materialSpaceCruiser, 'aoMapIntensity', { min: 0, max: 1, step: 0.01 });
+
 
 // initialize a group
 const group = new THREE.Group();
 
 // initialize the mesh
-const cube = new THREE.Mesh(geometry, material);
+const cubeMetalContainer = new THREE.Mesh(geometry, materialMetalContainer);
+cubeMetalContainer.position.x = -1.5;
 
-const knot = new THREE.Mesh(torusKnotGeometry, material);
-knot.position.x = 1.5;
+const cubeCarbonFiber = new THREE.Mesh(geometry, materialCarbon);
 
-const plane = new THREE.Mesh(planeGeometry, material);
-plane.position.x = -1.5;
-
-const sphere = new THREE.Mesh();
-sphere.geometry = sphereGeometry;
-sphere.material = material;
+const sphere = new THREE.Mesh(sphereGeometry,materialGrass);
 sphere.position.y = 1.5;
 
-const cylinder = new THREE.Mesh();
-cylinder.geometry = cylinderGeometry;
-cylinder.material = material;
-cylinder.position.y = -1.5;
+const cubeSpace = new THREE.Mesh(geometry, materialSpaceCruiser);
+cubeSpace.position.x = 1.5;
 
 // add the mest to the scene
-group.add(sphere, cylinder,cube, knot, plane);
+group.add(sphere,cubeCarbonFiber,cubeMetalContainer,cubeSpace);
 scene.add(group);
 
 // initialize the light
@@ -140,6 +159,7 @@ scene.add(light);
 const pointLight = new THREE.PointLight(0xffffff, 2);
 pointLight.position.set(5, 5, 5);
 scene.add(pointLight);
+
 // initialize the camera
 const camera = new THREE.PerspectiveCamera(
   25,
@@ -149,6 +169,7 @@ const camera = new THREE.PerspectiveCamera(
 );
 
 camera.position.z = 10;
+
 // initialize the renderer
 const canvas = document.querySelector("canvas.threejs");
 const renderer = new THREE.WebGLRenderer({
