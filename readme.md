@@ -9,7 +9,7 @@ This project is a simple website that displays a rotating 3D cube using [Three.j
 - Renders a 3D cube in the browser.
 - Fully interactive: Rotate and zoom in/out using mouse controls.
 - Powered by Three.js.
-- Manipulate the metalness, roughness, aoMapIntensity and displacementScale
+- Manipulate the metalness, roughness, aoMapIntensity and displacementScale with tweakpane.
 
 ## Prerequisites
 
@@ -68,6 +68,7 @@ Then, serve the contents of the `dist` folder using any static site hosting serv
 - [Three.js Documentation](https://threejs.org/docs/)
 - [Three.js Examples](https://threejs.org/examples/)
 - [Freepbr](https://freepbr.com/)
+- [Tweakpane](https://tweakpane.github.io/)
 
 ## License
 
