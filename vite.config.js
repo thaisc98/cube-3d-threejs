@@ -1,5 +1,7 @@
-export default {
-    root: 'src/',
-    publicDir: '../static/',
-    base: './',
-}
+module.exports = {
+    root: 'src',
+    build: {
+      outDir: '../dist',
+      emptyOutDir: true, // also necessary
+    }
+  }
